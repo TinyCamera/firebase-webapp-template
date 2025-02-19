@@ -17,7 +17,7 @@ export const EmailSignInForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<SignInFormInputs>();
 
   const onSubmit = (data: SignInFormInputs) => {

@@ -27,7 +27,7 @@ export const EmailSignUpForm: React.FC = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<SignUpFormInputs>();
 
   const password = watch("password");

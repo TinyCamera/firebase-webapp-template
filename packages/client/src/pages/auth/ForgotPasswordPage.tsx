@@ -17,7 +17,7 @@ export const ForgotPasswordPage: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitSuccessful },
   } = useForm<ForgotPasswordInputs>();
 
   const onSubmit = (data: ForgotPasswordInputs) => {

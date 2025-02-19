@@ -24,14 +24,14 @@ const authSlice = createSlice({
     },
     emailSignInRequest(
       state,
-      action: PayloadAction<{ email: string; password: string }>
+      _action: PayloadAction<{ email: string; password: string }>
     ) {
       state.loading = true;
       state.error = null;
     },
     emailSignUpRequest(
       state,
-      action: PayloadAction<{
+      _action: PayloadAction<{
         email: string;
         password: string;
         displayName: string;
@@ -48,7 +48,10 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    passwordResetRequest(state, action: PayloadAction<string>) {
+    passwordResetRequest(
+      state,
+      _action: PayloadAction<string>
+    ) {
       state.loading = true;
       state.error = null;
     },

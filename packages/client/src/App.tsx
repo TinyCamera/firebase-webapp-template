@@ -15,6 +15,7 @@ import { SignupPage } from "./pages/auth/SignupPage";
 import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
 import { HomePage } from "./pages/HomePage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { SandboxPage } from "./pages/SandboxPage";
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
 import { PublicOnlyRoute } from "./features/auth/components/PublicOnlyRoute";
 import { store } from "./store/store";
@@ -68,6 +69,16 @@ const App: React.FC = () => {
                   <ProtectedRoute>
                     <MainLayout>
                       <ProfilePage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/sandbox"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <SandboxPage />
                     </MainLayout>
                   </ProtectedRoute>
                 }
