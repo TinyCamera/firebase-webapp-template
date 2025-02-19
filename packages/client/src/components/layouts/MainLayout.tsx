@@ -21,6 +21,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   Home as HomeIcon,
   Person as PersonIcon,
+  Biotech as BiotextIcon,
 } from "@mui/icons-material";
 import { Link, useLocation } from "react-router-dom";
 import { AuthButton } from "../../features/auth/components/AuthButton";
@@ -57,6 +58,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const menuItems = [
   { text: "Home", icon: <HomeIcon />, path: "/" },
   { text: "Profile", icon: <PersonIcon />, path: "/profile" },
+  { text: "Sandbox", icon: <BiotextIcon />, path: "/sandbox" },
 ];
 
 interface MainLayoutProps {
