@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@firebase-webapp-template/shared": ["packages/shared/src"],
+      "@firebase-webapp-template/server": ["packages/server/src"],
+      "@firebase-webapp-template/client": ["packages/client/src"]
+    }
+  }
+}

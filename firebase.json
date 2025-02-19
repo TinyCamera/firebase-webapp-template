@@ -1,0 +1,30 @@
+{
+  "functions": [
+    {
+      "source": "packages/server",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "src/**"
+      ],
+      "predeploy": ["npm run lint", "npm run build"]
+    }
+  ],
+  "emulators": {
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "auth": {
+      "port": 9099
+    },
+    "ui": {
+      "enabled": true
+    }
+  }
+}
