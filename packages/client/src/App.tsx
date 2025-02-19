@@ -8,12 +8,13 @@ import {
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import { AppBar, Toolbar, Typography, Container } from "@mui/material";
-import { AuthButton } from "./features/auth/components/AuthButton";
+import { Container } from "@mui/material";
+import { MainLayout } from "./components/layouts/MainLayout";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { SignupPage } from "./pages/auth/SignupPage";
 import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
 import { HomePage } from "./pages/HomePage";
+import { ProfilePage } from "./pages/ProfilePage";
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
 import { PublicOnlyRoute } from "./features/auth/components/PublicOnlyRoute";
 import { store } from "./store/store";
@@ -25,15 +26,7 @@ const App: React.FC = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <AppBar position="static">
-            <Toolbar>
-              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Firebase Web App
-              </Typography>
-              <AuthButton />
-            </Toolbar>
-          </AppBar>
-          <Container maxWidth="lg" sx={{ mt: 4 }}>
+          <Container>
             <Routes>
               <Route
                 path="/login"
@@ -63,7 +56,19 @@ const App: React.FC = () => {
                 path="/"
                 element={
                   <ProtectedRoute>
-                    <HomePage />
+                    <MainLayout>
+                      <HomePage />
+                    </MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout>
+                      <ProfilePage />
+                    </MainLayout>
                   </ProtectedRoute>
                 }
               />
