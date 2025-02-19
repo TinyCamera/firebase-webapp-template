@@ -13,6 +13,9 @@ import { AuthButton } from "./features/auth/components/AuthButton";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { SignupPage } from "./pages/auth/SignupPage";
 import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
+import { HomePage } from "./pages/HomePage";
+import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
+import { PublicOnlyRoute } from "./features/auth/components/PublicOnlyRoute";
 import { store } from "./store/store";
 import { theme } from "./theme";
 
@@ -32,15 +35,36 @@ const App: React.FC = () => {
           </AppBar>
           <Container maxWidth="lg" sx={{ mt: 4 }}>
             <Routes>
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route
+                path="/login"
+                element={
+                  <PublicOnlyRoute>
+                    <LoginPage />
+                  </PublicOnlyRoute>
+                }
+              />
+              <Route
+                path="/signup"
+                element={
+                  <PublicOnlyRoute>
+                    <SignupPage />
+                  </PublicOnlyRoute>
+                }
+              />
+              <Route
+                path="/forgot-password"
+                element={
+                  <PublicOnlyRoute>
+                    <ForgotPasswordPage />
+                  </PublicOnlyRoute>
+                }
+              />
               <Route
                 path="/"
                 element={
-                  <Typography variant="h4" component="h1" gutterBottom>
-                    Welcome to Firebase Web App Template
-                  </Typography>
+                  <ProtectedRoute>
+                    <HomePage />
+                  </ProtectedRoute>
                 }
               />
               <Route path="*" element={<Navigate to="/" replace />} />
