@@ -22,8 +22,38 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
-    signInRequest(state) {
+    emailSignInRequest(
+      state,
+      action: PayloadAction<{ email: string; password: string }>
+    ) {
       state.loading = true;
+      state.error = null;
+    },
+    emailSignUpRequest(
+      state,
+      action: PayloadAction<{
+        email: string;
+        password: string;
+        displayName: string;
+      }>
+    ) {
+      state.loading = true;
+      state.error = null;
+    },
+    googleSignInRequest(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    githubSignInRequest(state) {
+      state.loading = true;
+      state.error = null;
+    },
+    passwordResetRequest(state, action: PayloadAction<string>) {
+      state.loading = true;
+      state.error = null;
+    },
+    passwordResetSuccess(state) {
+      state.loading = false;
       state.error = null;
     },
     signOutRequest(state) {
@@ -40,7 +70,17 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, signInRequest, signOutRequest, authError, clearError } =
-  authSlice.actions;
+export const {
+  setUser,
+  emailSignInRequest,
+  emailSignUpRequest,
+  googleSignInRequest,
+  githubSignInRequest,
+  passwordResetRequest,
+  passwordResetSuccess,
+  signOutRequest,
+  authError,
+  clearError,
+} = authSlice.actions;
 
 export default authSlice.reducer;

@@ -2,12 +2,27 @@ import { call, put, takeLatest, take, fork } from "redux-saga/effects";
 import {
   signInWithPopup,
   GoogleAuthProvider,
+  GithubAuthProvider,
   signOut as firebaseSignOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  updateProfile,
   onAuthStateChanged,
   User as FirebaseUser,
 } from "firebase/auth";
 import { auth } from "../../../config/firebase";
-import { setUser, signInRequest, signOutRequest, authError } from "./authSlice";
+import {
+  setUser,
+  googleSignInRequest,
+  githubSignInRequest,
+  emailSignInRequest,
+  emailSignUpRequest,
+  passwordResetRequest,
+  passwordResetSuccess,
+  signOutRequest,
+  authError,
+} from "./authSlice";
 import { EventChannel, eventChannel } from "redux-saga";
 import { User } from "@firebase-webapp-template/shared";
 
@@ -57,12 +72,74 @@ function* watchAuthStateChanged(): Generator {
   }
 }
 
-// Sign in with Google
+// Email sign in
+function* signInWithEmail(
+  action: ReturnType<typeof emailSignInRequest>
+): Generator {
+  try {
+    const { email, password } = action.payload;
+    const result = yield call(
+      signInWithEmailAndPassword,
+      auth,
+      email,
+      password
+    );
+    yield put(setUser(mapFirebaseUser(result.user)));
+  } catch (error) {
+    yield put(authError((error as Error).message));
+  }
+}
+
+// Email sign up
+function* signUpWithEmail(
+  action: ReturnType<typeof emailSignUpRequest>
+): Generator {
+  try {
+    const { email, password, displayName } = action.payload;
+    const result = yield call(
+      createUserWithEmailAndPassword,
+      auth,
+      email,
+      password
+    );
+
+    // Update profile with display name
+    yield call(updateProfile, result.user, { displayName });
+    yield put(setUser(mapFirebaseUser(result.user)));
+  } catch (error) {
+    yield put(authError((error as Error).message));
+  }
+}
+
+// Google sign in
 function* signInWithGoogle(): Generator {
   try {
     const provider = new GoogleAuthProvider();
     const result = yield call(signInWithPopup, auth, provider);
     yield put(setUser(mapFirebaseUser(result.user)));
+  } catch (error) {
+    yield put(authError((error as Error).message));
+  }
+}
+
+// GitHub sign in
+function* signInWithGithub(): Generator {
+  try {
+    const provider = new GithubAuthProvider();
+    const result = yield call(signInWithPopup, auth, provider);
+    yield put(setUser(mapFirebaseUser(result.user)));
+  } catch (error) {
+    yield put(authError((error as Error).message));
+  }
+}
+
+// Password reset
+function* resetPassword(
+  action: ReturnType<typeof passwordResetRequest>
+): Generator {
+  try {
+    yield call(sendPasswordResetEmail, auth, action.payload);
+    yield put(passwordResetSuccess());
   } catch (error) {
     yield put(authError((error as Error).message));
   }
@@ -80,7 +157,11 @@ function* signOut(): Generator {
 
 // Root auth saga
 export default function* authSaga(): Generator {
-  yield takeLatest(signInRequest.type, signInWithGoogle);
+  yield takeLatest(emailSignInRequest.type, signInWithEmail);
+  yield takeLatest(emailSignUpRequest.type, signUpWithEmail);
+  yield takeLatest(googleSignInRequest.type, signInWithGoogle);
+  yield takeLatest(githubSignInRequest.type, signInWithGithub);
+  yield takeLatest(passwordResetRequest.type, resetPassword);
   yield takeLatest(signOutRequest.type, signOut);
   yield fork(watchAuthStateChanged);
 }

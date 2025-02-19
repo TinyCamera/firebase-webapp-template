@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Avatar, Box, Menu, MenuItem } from "@mui/material";
 import { RootState } from "../../../store/store";
-import { signInRequest, signOutRequest } from "../store/authSlice";
+import { googleSignInRequest, signOutRequest } from "../store/authSlice";
 
 export const AuthButton: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,8 @@ export const AuthButton: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const handleSignIn = () => {
-    dispatch(signInRequest());
+  const handleGoogleSignIn = () => {
+    dispatch(googleSignInRequest());
   };
 
   const handleSignOut = () => {
@@ -32,7 +32,7 @@ export const AuthButton: React.FC = () => {
 
   if (!user) {
     return (
-      <Button variant="contained" color="primary" onClick={handleSignIn}>
+      <Button variant="contained" color="primary" onClick={handleGoogleSignIn}>
         Sign In with Google
       </Button>
     );

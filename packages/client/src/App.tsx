@@ -1,10 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { AppBar, Toolbar, Typography, Container } from "@mui/material";
 import { AuthButton } from "./features/auth/components/AuthButton";
+import { LoginPage } from "./pages/auth/LoginPage";
+import { SignupPage } from "./pages/auth/SignupPage";
+import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
 import { store } from "./store/store";
 import { theme } from "./theme";
 
@@ -23,14 +31,20 @@ const App: React.FC = () => {
             </Toolbar>
           </AppBar>
           <Container maxWidth="lg" sx={{ mt: 4 }}>
-            {/* Add your routes and content here */}
-            <Typography variant="h4" component="h1" gutterBottom>
-              Welcome to Firebase Web App Template
-            </Typography>
-            <Typography variant="body1">
-              Start building your application by adding components and routes
-              here.
-            </Typography>
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignupPage />} />
+              <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+              <Route
+                path="/"
+                element={
+                  <Typography variant="h4" component="h1" gutterBottom>
+                    Welcome to Firebase Web App Template
+                  </Typography>
+                }
+              />
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
           </Container>
         </Router>
       </ThemeProvider>
