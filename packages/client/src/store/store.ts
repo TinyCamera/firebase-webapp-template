@@ -18,7 +18,7 @@ export const store = configureStore({
         ignoredPaths: ["auth.user"],
       },
     }).concat(sagaMiddleware),
-  devTools: process.env.NODE_ENV !== "production",
+  devTools: import.meta.env.MODE !== "production",
 });
 
 // Run saga middleware
