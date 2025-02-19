@@ -1,4 +1,4 @@
-import * as express from "express";
+import express from "express";
 import * as functions from "firebase-functions";
 import * as dotenv from "dotenv";
 import { errorHandler } from "./modules/errors/errorHandler";
@@ -15,8 +15,17 @@ app.use(express.json());
 // API routes will be mounted here
 // Example: app.use("/api/v1/users", userRoutes);
 
-// Error handling
-app.use(errorHandler);
+// Error handling - must be last middleware
+app.use(
+  (
+    err: Error,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    errorHandler(err, req, res, next);
+  }
+);
 
 // Export the Express app as a Firebase Function
 export const api = functions.https.onRequest(app);

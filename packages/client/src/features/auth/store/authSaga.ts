@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest, take, fork } from "redux-saga/effects";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -39,7 +39,7 @@ function createAuthChannel() {
 }
 
 // Watch auth state changes
-function* watchAuthStateChanged() {
+function* watchAuthStateChanged(): Generator {
   const channel: EventChannel<{ user: FirebaseUser | null; error?: Error }> =
     yield call(createAuthChannel);
 
@@ -58,7 +58,7 @@ function* watchAuthStateChanged() {
 }
 
 // Sign in with Google
-function* signInWithGoogle() {
+function* signInWithGoogle(): Generator {
   try {
     const provider = new GoogleAuthProvider();
     const result = yield call(signInWithPopup, auth, provider);
@@ -69,7 +69,7 @@ function* signInWithGoogle() {
 }
 
 // Sign out
-function* signOut() {
+function* signOut(): Generator {
   try {
     yield call(firebaseSignOut, auth);
     yield put(setUser(null));
@@ -79,7 +79,7 @@ function* signOut() {
 }
 
 // Root auth saga
-export default function* authSaga() {
+export default function* authSaga(): Generator {
   yield takeLatest(signInRequest.type, signInWithGoogle);
   yield takeLatest(signOutRequest.type, signOut);
   yield fork(watchAuthStateChanged);
