@@ -8,12 +8,13 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
-    "@firebase-webapp-template/shared": "1.0.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@firebase-webapp-template/shared": "1.0.0",
     "@firebase/firestore": "^4.7.8",
     "@mui/icons-material": "^6.4.3",
     "@mui/material": "^6.4.3",
@@ -33,6 +34,7 @@
     "tailwindcss": "^4.0.5"
   },
   "devDependencies": {
+    "@playwright/test": "^1.50.1",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/react": "^16.2.0",
     "@types/react": "^19.0.8",
