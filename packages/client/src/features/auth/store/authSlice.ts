@@ -1,16 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "@firebase-webapp-template/shared";
+import type { UserInfo as UserProfile } from "firebase/auth";
 
 export interface AuthState {
   user: User | null;
   loading: boolean;
   error: string | null;
+  token: string | null;
+  profile: UserProfile | null;
+  profiles: Record<string, UserProfile>;
 }
 
 const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
+  token: null,
+  profile: null,
+  profiles: {},
 };
 
 const authSlice = createSlice({
@@ -48,10 +55,7 @@ const authSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    passwordResetRequest(
-      state,
-      _action: PayloadAction<string>
-    ) {
+    passwordResetRequest(state, _action: PayloadAction<string>) {
       state.loading = true;
       state.error = null;
     },
