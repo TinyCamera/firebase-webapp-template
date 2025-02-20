@@ -3,6 +3,7 @@ import * as functions from "firebase-functions";
 import * as dotenv from "dotenv";
 import { errorHandler } from "./modules/errors/errorHandler";
 import todoRoutes from "./modules/todos/todoRoutes";
+import { authMiddleware } from "./modules/auth/authMiddleware";
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +13,8 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+
+app.use(authMiddleware);
 
 // API routes
 app.use("/v1/todos", todoRoutes);
