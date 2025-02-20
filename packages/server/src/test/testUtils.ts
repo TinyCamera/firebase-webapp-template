@@ -7,11 +7,11 @@ process.env.FIREBASE_AUTH_EMULATOR_HOST = "127.0.0.1:9098";
 
 // Set FIREBASE_CONFIG env var for functions emulator
 process.env.FIREBASE_CONFIG = JSON.stringify({
-  projectId: "your-firebase-project-id",
+  projectId: "your-firebase-project-id-24121",
 });
 
 export const API_BASE =
-  "http://127.0.0.1:5001/your-firebase-project-id/us-central1/api";
+  "http://127.0.0.1:5001/your-firebase-project-id-24121/us-central1/api";
 
 export const AUTH_BASE = "http://127.0.0.1:9098";
 

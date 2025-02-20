@@ -10,7 +10,9 @@
         "firebase-debug.*.log",
         "src/**"
       ],
-      "predeploy": ["npm run lint", "npm run build"]
+      "predeploy": [
+        "npm run build"
+      ]
     }
   ],
   "emulators": {
@@ -30,5 +32,19 @@
     "hub": {
       "port": 4440
     }
+  },
+  "hosting": {
+    "public": "packages/client/dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }

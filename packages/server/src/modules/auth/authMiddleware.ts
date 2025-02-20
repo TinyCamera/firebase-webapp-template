@@ -33,6 +33,7 @@ export async function authMiddleware(
       email: decodedToken.email || "",
       displayName: decodedToken.name,
       photoURL: decodedToken.picture,
+      token,
     };
 
     next();

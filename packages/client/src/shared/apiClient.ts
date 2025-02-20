@@ -4,7 +4,8 @@ import { selectToken } from "../features/auth/store/authSelectors";
 
 // API URL types for type safety
 const API_URLS = {
-  development: "http://127.0.0.1:5001/your-firebase-project-id/us-central1/api",
+  development:
+    "http://127.0.0.1:5001/your-firebase-project-id-24121/us-central1/api",
   production: "/api",
 } as const;
 
