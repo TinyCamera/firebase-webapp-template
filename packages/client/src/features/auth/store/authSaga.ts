@@ -27,7 +27,13 @@ import { EventChannel, eventChannel } from "redux-saga";
 import { User } from "@firebase-webapp-template/shared";
 
 // Convert Firebase user to our User type
-async function mapFirebaseUser(firebaseUser: FirebaseUser): Promise<User> {
+async function mapFirebaseUser(
+  firebaseUser: FirebaseUser | null
+): Promise<User | null> {
+  if (!firebaseUser) {
+    return null;
+  }
+
   return {
     id: firebaseUser.uid,
     email: firebaseUser.email || "",
