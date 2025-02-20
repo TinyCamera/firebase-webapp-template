@@ -27,12 +27,13 @@ import { EventChannel, eventChannel } from "redux-saga";
 import { User } from "@firebase-webapp-template/shared";
 
 // Convert Firebase user to our User type
-function mapFirebaseUser(firebaseUser: FirebaseUser): User {
+async function mapFirebaseUser(firebaseUser: FirebaseUser): Promise<User> {
   return {
     id: firebaseUser.uid,
     email: firebaseUser.email || "",
     displayName: firebaseUser.displayName || undefined,
     photoURL: firebaseUser.photoURL || undefined,
+    token: await firebaseUser.getIdToken(),
   };
 }
 
@@ -64,7 +65,9 @@ function* watchAuthStateChanged(): Generator {
       if (error) {
         yield put(authError(error.message));
       } else {
-        yield put(setUser(user ? mapFirebaseUser(user) : null));
+        const userObj = yield mapFirebaseUser(user);
+
+        yield put(setUser(userObj));
       }
     }
   } finally {
@@ -84,7 +87,7 @@ function* signInWithEmail(
       email,
       password
     );
-    yield put(setUser(mapFirebaseUser(result.user)));
+    yield put(setUser(yield mapFirebaseUser(result.user)));
   } catch (error) {
     yield put(authError((error as Error).message));
   }
@@ -105,7 +108,7 @@ function* signUpWithEmail(
 
     // Update profile with display name
     yield call(updateProfile, result.user, { displayName });
-    yield put(setUser(mapFirebaseUser(result.user)));
+    yield put(setUser(yield mapFirebaseUser(result.user)));
   } catch (error) {
     yield put(authError((error as Error).message));
   }
@@ -116,7 +119,7 @@ function* signInWithGoogle(): Generator {
   try {
     const provider = new GoogleAuthProvider();
     const result = yield call(signInWithPopup, auth, provider);
-    yield put(setUser(mapFirebaseUser(result.user)));
+    yield put(setUser(yield mapFirebaseUser(result.user)));
   } catch (error) {
     yield put(authError((error as Error).message));
   }
@@ -127,7 +130,7 @@ function* signInWithGithub(): Generator {
   try {
     const provider = new GithubAuthProvider();
     const result = yield call(signInWithPopup, auth, provider);
-    yield put(setUser(mapFirebaseUser(result.user)));
+    yield put(setUser(yield mapFirebaseUser(result.user)));
   } catch (error) {
     yield put(authError((error as Error).message));
   }

@@ -6,7 +6,6 @@ export interface AuthState {
   user: User | null;
   loading: boolean;
   error: string | null;
-  token: string | null;
   profile: UserProfile | null;
   profiles: Record<string, UserProfile>;
 }
@@ -15,7 +14,6 @@ const initialState: AuthState = {
   user: null,
   loading: false,
   error: null,
-  token: null,
   profile: null,
   profiles: {},
 };

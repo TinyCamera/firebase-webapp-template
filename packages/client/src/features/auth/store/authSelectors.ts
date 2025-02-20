@@ -16,8 +16,8 @@ export const selectUser = (state: RootState): User | null => state.auth.user;
 export const selectUserId = (state: RootState): string | undefined =>
   state.auth.user?.id;
 
-export const selectToken = (state: RootState): string | null =>
-  state.auth.token;
+export const selectToken = (state: RootState): string | null | undefined =>
+  state.auth.user?.token;
 
 export const selectUserProfile = (state: RootState): UserInfo | null =>
   state.auth.profile;
