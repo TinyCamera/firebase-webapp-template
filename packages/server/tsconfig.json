@@ -9,15 +9,10 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2020",
-    "tsBuildInfoFile": "lib/.tsbuildinfo"
+    "tsBuildInfoFile": "lib/.tsbuildinfo",
+    "types": ["jest", "node"]
   },
-  "include": [
-    "src/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.test.ts"
-  ],
+  "include": ["src/**/*"],
   "references": [
     {
       "path": "../shared"

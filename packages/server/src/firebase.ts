@@ -1,10 +1,9 @@
 import * as admin from "firebase-admin";
 
 // Initialize Firebase Admin
-const app = admin.initializeApp();
+admin.initializeApp();
 
-export const auth = app.auth();
-export const db = app.firestore();
+export const auth = admin.auth();
+export const db = admin.firestore();
 
-// Enable Firestore timestamp snapshots
-db.settings({ ignoreUndefinedProperties: true });
+export { admin };
