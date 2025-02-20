@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Container, Typography, Stack } from "@mui/material";
 import { TodoForm } from "./TodoForm";
 import { TodoItem } from "./TodoItem";
 import { TodoFilters } from "./TodoFilters";
@@ -49,8 +50,10 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Todo List</h1>
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Typography variant="h4" component="h1" align="center" sx={{ mb: 4 }}>
+        Todo List
+      </Typography>
 
       <TodoForm onSubmit={handleCreateTodo} loading={loading} />
 
@@ -60,7 +63,7 @@ export const TodoList: React.FC = () => {
         todosCount={todosCount}
       />
 
-      <div className="space-y-2">
+      <Stack spacing={1}>
         {todos.map((todo) => (
           <TodoItem
             key={todo.id}
@@ -69,13 +72,18 @@ export const TodoList: React.FC = () => {
             onDelete={handleDeleteTodo}
           />
         ))}
-      </div>
+      </Stack>
 
       {todos.length === 0 && (
-        <p className="text-center text-gray-500 mt-4">
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          align="center"
+          sx={{ mt: 2 }}
+        >
           {loading ? "Loading todos..." : "No todos found"}
-        </p>
+        </Typography>
       )}
-    </div>
+    </Container>
   );
 };

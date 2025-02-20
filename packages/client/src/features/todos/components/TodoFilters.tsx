@@ -1,4 +1,5 @@
 import React from "react";
+import { Stack, ToggleButtonGroup, ToggleButton, Chip } from "@mui/material";
 
 interface TodoFiltersProps {
   currentFilter: "all" | "active" | "completed";
@@ -26,29 +27,50 @@ export const TodoFilters: React.FC<TodoFiltersProps> = ({
   ];
 
   return (
-    <div className="flex justify-center space-x-2 mb-6">
-      {filters.map(({ key, label, count }) => (
-        <button
-          key={key}
-          onClick={() => onFilterChange(key)}
-          className={`px-4 py-2 rounded-lg text-sm font-medium ${
-            currentFilter === key
-              ? "bg-blue-600 text-white"
-              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-          }`}
-        >
-          {label}
-          <span
-            className={`ml-2 px-2 py-1 text-xs rounded-full ${
-              currentFilter === key
-                ? "bg-blue-500 text-white"
-                : "bg-gray-200 text-gray-600"
-            }`}
+    <Stack direction="row" justifyContent="center" sx={{ mb: 3 }}>
+      <ToggleButtonGroup
+        value={currentFilter}
+        exclusive
+        onChange={(_, value) => value && onFilterChange(value)}
+        size="small"
+      >
+        {filters.map(({ key, label, count }) => (
+          <ToggleButton
+            key={key}
+            value={key}
+            sx={{
+              px: 2,
+              py: 1,
+              "&.Mui-selected": {
+                color: "white",
+                backgroundColor: "primary.main",
+                "&:hover": {
+                  backgroundColor: "primary.dark",
+                },
+              },
+            }}
           >
-            {count}
-          </span>
-        </button>
-      ))}
-    </div>
+            {label}
+            <Chip
+              label={count}
+              size="small"
+              sx={{
+                ml: 1,
+                height: 20,
+                "& .MuiChip-label": {
+                  px: 1,
+                  py: 0.5,
+                  fontSize: "0.75rem",
+                },
+                ...(currentFilter === key && {
+                  bgcolor: "primary.dark",
+                  color: "white",
+                }),
+              }}
+            />
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+    </Stack>
   );
 };
