@@ -16,11 +16,11 @@ import { ForgotPasswordPage } from "./pages/auth/ForgotPasswordPage";
 import { HomePage } from "./pages/HomePage";
 import { ProfilePage } from "./pages/ProfilePage";
 import { SandboxPage } from "./pages/SandboxPage";
-import { TodosPage } from "./pages/TodosPage";
 import { ProtectedRoute } from "./features/auth/components/ProtectedRoute";
 import { PublicOnlyRoute } from "./features/auth/components/PublicOnlyRoute";
 import { store } from "./store/store";
 import { theme } from "./theme";
+import { TodoList } from "./features/todos/components/TodoList";
 
 const App: React.FC = () => {
   return (
@@ -89,7 +89,7 @@ const App: React.FC = () => {
                 element={
                   <ProtectedRoute>
                     <MainLayout>
-                      <TodosPage />
+                      <TodoList />
                     </MainLayout>
                   </ProtectedRoute>
                 }

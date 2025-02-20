@@ -28,12 +28,22 @@ import {
   TableRow,
   Tabs,
   TextField,
+  ToggleButton,
+  ToggleButtonGroup,
   Typography,
 } from "@mui/material";
 import React from "react";
 
 export const SandboxPage: React.FC = () => {
   const [tabValue, setTabValue] = React.useState(0);
+  const [alignment, setAlignment] = React.useState<string | null>("left");
+
+  const handleAlignment = (
+    event: React.MouseEvent<HTMLElement>,
+    newAlignment: string | null
+  ) => {
+    setAlignment(newAlignment);
+  };
 
   return (
     <Stack spacing={4} sx={{ py: 4 }}>
@@ -102,6 +112,30 @@ export const SandboxPage: React.FC = () => {
               Text Error
             </Button>
           </Box>
+        </Stack>
+      </section>
+
+      <section>
+        <Typography variant="h4" gutterBottom>
+          Toggle Buttons
+        </Typography>
+        <Stack spacing={2}>
+          <ToggleButtonGroup
+            value={alignment}
+            exclusive
+            onChange={handleAlignment}
+            aria-label="text alignment"
+          >
+            <ToggleButton value="left" aria-label="left aligned">
+              Left
+            </ToggleButton>
+            <ToggleButton value="center" aria-label="centered">
+              Center
+            </ToggleButton>
+            <ToggleButton value="right" aria-label="right aligned">
+              Right
+            </ToggleButton>
+          </ToggleButtonGroup>
         </Stack>
       </section>
 
