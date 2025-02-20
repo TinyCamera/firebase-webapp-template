@@ -6,7 +6,7 @@ import { selectToken } from "../features/auth/store/authSelectors";
 const API_URLS = {
   development:
     "http://127.0.0.1:5001/your-firebase-project-id-24121/us-central1/api",
-  production: "/api",
+  production: `${import.meta.env.VITE_API_URL}/api`,
 } as const;
 
 // Create axios instance with base configuration

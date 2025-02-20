@@ -22,6 +22,7 @@ function* fetchTodosSaga(): Generator<any, void, any> {
     const todos = yield call(todosApi.getTodos);
     yield put(fetchTodosSuccess(todos));
   } catch (error) {
+    console.error(error);
     yield put(
       fetchTodosFailure(
         error instanceof Error ? error.message : "Failed to fetch todos"

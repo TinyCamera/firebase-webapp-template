@@ -19,9 +19,11 @@ import {
 
 export const TodoList: React.FC = () => {
   const dispatch = useDispatch();
-  const todos = useSelector(selectFilteredTodos);
+  const fakeTodos = useSelector(selectFilteredTodos);
   const loading = useSelector(selectTodosLoading);
   const currentFilter = useSelector(selectTodosFilter);
+
+  const todos = fakeTodos || [];
 
   useEffect(() => {
     dispatch(fetchTodosStart());
@@ -44,9 +46,9 @@ export const TodoList: React.FC = () => {
   };
 
   const todosCount = {
-    all: todos.length,
-    active: todos.filter((todo) => !todo.completed).length,
-    completed: todos.filter((todo) => todo.completed).length,
+    all: todos?.length || 0,
+    active: todos?.filter((todo) => !todo.completed).length || 0,
+    completed: todos?.filter((todo) => todo.completed).length || 0,
   };
 
   return (
