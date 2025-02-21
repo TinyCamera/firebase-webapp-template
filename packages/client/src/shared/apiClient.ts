@@ -1,11 +1,12 @@
 import axios from "axios";
-import { store } from "../store/store";
+import { app } from "../config/firebase";
 import { selectToken } from "../features/auth/store/authSelectors";
+import { store } from "../store/store";
 
-// API URL types for type safety
+const projectId = app.options.projectId;
+
 const API_URLS = {
-  development:
-    "http://127.0.0.1:5001/your-firebase-project-id-24121/us-central1/api",
+  development: `http://127.0.0.1:5001/${projectId}/us-central1/api`,
   production: `${import.meta.env.VITE_API_URL}/api`,
 } as const;
 
