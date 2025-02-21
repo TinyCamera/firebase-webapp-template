@@ -14,6 +14,7 @@ import {
 import { auth } from "../../../config/firebase";
 import {
   setUser,
+  setInitialized,
   googleSignInRequest,
   githubSignInRequest,
   emailSignInRequest,
@@ -72,8 +73,8 @@ function* watchAuthStateChanged(): Generator {
         yield put(authError(error.message));
       } else {
         const userObj = yield mapFirebaseUser(user);
-
         yield put(setUser(userObj));
+        yield put(setInitialized());
       }
     }
   } finally {

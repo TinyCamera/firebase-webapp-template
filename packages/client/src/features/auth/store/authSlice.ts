@@ -8,6 +8,7 @@ export interface AuthState {
   error: string | null;
   profile: UserProfile | null;
   profiles: Record<string, UserProfile>;
+  initialized: boolean;
 }
 
 const initialState: AuthState = {
@@ -16,12 +17,16 @@ const initialState: AuthState = {
   error: null,
   profile: null,
   profiles: {},
+  initialized: false,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setInitialized(state) {
+      state.initialized = true;
+    },
     setUser(state, action: PayloadAction<User | null>) {
       state.user = action.payload;
       state.loading = false;
@@ -77,6 +82,7 @@ const authSlice = createSlice({
 
 export const {
   setUser,
+  setInitialized,
   emailSignInRequest,
   emailSignUpRequest,
   googleSignInRequest,
