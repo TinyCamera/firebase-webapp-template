@@ -11,7 +11,8 @@
         "src/**"
       ],
       "predeploy": [
-        "npm run build"
+        "npm run build",
+        "npm run test:emulator --workspace packages/server"
       ]
     }
   ],
@@ -35,16 +36,16 @@
   },
   "hosting": {
     "public": "packages/client/dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "predeploy": [
+      "npm run build",
+      "npm run test:e2e:emulator --workspace packages/client"
     ]
   }
 }

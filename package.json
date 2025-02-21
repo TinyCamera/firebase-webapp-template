@@ -7,7 +7,9 @@
   "scripts": {
     "build": "tsc -b tsconfig.build.json; cp -R ./packages/shared/lib ./packages/server/lib/shared",
     "watch": "tsc -b tsconfig.build.json --watch",
-    "clean:build": "find packages/*/src -type f \\( -name \"*.js\" -o -name \"*.d.ts\" -o -name \"*.map\" \\) -delete"
+    "clean:build": "find packages/*/src -type f \\( -name \"*.js\" -o -name \"*.d.ts\" -o -name \"*.map\" \\) -delete",
+    "deploy:client": "firebase deploy --only hosting",
+    "deploy:server": "firebase deploy --except hosting"
   },
   "devDependencies": {
     "@types/node": "^22.13.4",
